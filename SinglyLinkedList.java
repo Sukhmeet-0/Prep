@@ -48,6 +48,11 @@ public class SinglyLinkedList {
     public static void insertEnd(int data){
         Node temp=head;
         Node curr=new Node(data);
+        if(head==null){
+            head=curr;
+            head.next=null;
+            return;
+        }
         while(temp.next!=null){
             temp=temp.next;
         }
@@ -205,67 +210,124 @@ public class SinglyLinkedList {
         }
         return false;
     }
+    public static boolean containsLoop(){
+        Node ptr=head;
+        Node fastPtr=head;
+        while(fastPtr!=null && fastPtr.next!=null){
+            fastPtr=fastPtr.next.next;
+            ptr=ptr.next;
+            if(fastPtr==ptr){
+                return true;
+            }
+        }
+        return false;
+    } 
+    public static Node startNode(){
+        Node fastptr=head;
+        Node ptr=head;
+        while(fastptr!=null && fastptr.next!=null){
+            fastptr=fastptr.next.next;
+            ptr=ptr.next;
+            if(fastptr==ptr){
+                return getStartingNode(ptr);
+            }
+        }
+        return null;
+    }
+    private static Node getStartingNode(Node ptr){
+        Node temp=head;
+        while(temp!=ptr){
+            temp=temp.next;
+            ptr=ptr.next;
+        }
+        return temp;
+    }
+    public static void findMeetingPoint(){
+        Node fp=head;
+        Node p=head;
+        while(fp!=null && fp.next!=null){
+            fp=fp.next.next;
+            p=p.next;
+            if(p==fp){
+                removeLoop(p);
+                return;
+            }
+        }
+    }
+    public static void removeLoop(Node p){
+        Node temp=head;
+        while(p.next!=temp.next){
+            temp=temp.next;
+            p=p.next;
+        }
+        p.next=null;
+    }
+    
+    public static Node addTwoList(Node a, Node b){
+        Node dummy=new Node(0);
+        Node tail=dummy;
+        int carry=0;
+        while(a!=null || b!=null){
+            int x=(a!=null)?a.data:0;
+            int y=(b!=null)?b.data:0;
+            int sum=x+y+carry;
+            carry=sum/10;
+            tail.next=new Node(sum%10);
+            tail=tail.next;
+            if(a!=null)a=a.next;
+            if(b!=null)b=b.next;
+        }
+        if(carry>0){
+            tail=new Node(carry);
+
+        }
+        return dummy.next;
+    }public static Node merge(Node a, Node b){
+        Node dummy=new Node(0);
+        Node tail=dummy;
+        if(a==null){
+            return b;
+        }
+        else if(b==null){
+            return a;
+        }
+        while(a!=null && b!=null){
+            
+            if(a.data<=b.data){
+                tail.next=a;
+                a=a.next;
+            }else{
+                tail.next=b;
+                b=b.next;
+            }
+            tail=tail.next;
+        }
+        tail.next=null;
+        return dummy.next;
+    }
     public static void main(String[] args) {
-        // SinglyLinkedList.head=new Node(1);
-        // Node one=new Node(2);
-        // Node two=new Node(3);
-        // Node three=new Node(4);
+        SinglyLinkedList s=new SinglyLinkedList();
+        s.head=new Node(1);
+        s.insertEnd(2);
+        s.insertEnd(3);
+
+        display(s.head);
+
+        SinglyLinkedList ss=new SinglyLinkedList();
+        ss.head=new Node(4);
+        ss.insertEnd(5);
+        ss.insertEnd(7);
+        // ss.insertEnd(8);
+        // ss.insertEnd(9);
+        // ss.insertEnd(7);
+
+        display(ss.head);
+        display(addTwoList(s.head, ss.head));
         
-        // SinglyLinkedList.head.next=one;
-        // one.next=two;
-        // two.next=three;
-        // three.next=null;
+        display(merge(s.head, ss.head));
 
-        // display(head);
-        // insertStart(0);
-        // display(head);
-        // display(head);
-        // insertEnd(6);
-        // insertEnd(6);
-        // insertEnd(6);
-        // insertEnd(7);
-        // insertEnd(7);
-        // insertEnd(8);
-        // display(head);
-        // display(head);
-        // insert(5, 5);
-        // display(head);
-        // deleteStart();
-        // display(head);
-        // deleteEnd();
-        // display(head);
-        // delete(3);
-        // insertEnd(6);
-        // display(head);
-        // search(6);
-        // // System.out.println(LengthOfList());
-        // Node rev=reverse();
-        // // display(rev);
-        // findMiddleNode();
-        // findNthElementFromEnd(2);
-        // removeDuplicates();
-        // display(head);
-        // insertIntoSortedlist(5);
-        // display(head);
-        // deleteKey(8);
-        // display(head);
+        
 
-        SinglyLinkedList.head=new Node(1);
-        Node two=new Node(2);
-        Node three=new Node(3);
-        Node four=new Node(4);
-        Node five=new Node(5);
-        Node six=new Node(6);
-
-        head.next=two;
-        two.next=three;
-        three.next=four;
-        four.next=five;
-        five.next=six;
-        // six.next=null;
-        six.next=three;
-
-        System.out.println(findLoop());
 
     }
 }
