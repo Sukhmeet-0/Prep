@@ -56,8 +56,8 @@ public class SinglyLinkedList {
         while(temp.next!=null){
             temp=temp.next;
         }
-        temp.next=curr;
         curr.next=null;
+        temp.next=curr;
     }
     public static void deleteStart(){
         if(head==null){
@@ -291,30 +291,40 @@ public class SinglyLinkedList {
         else if(b==null){
             return a;
         }
-        while(a!=null && b!=null){
+        while(a!=null || b!=null){
             
-            if(a.data<=b.data){
+            if(a.data<=b.data|| b==null){
                 tail.next=a;
                 a=a.next;
-            }else{
+            }else if(a.data>=b.data || a==null){
                 tail.next=b;
                 b=b.next;
             }
             tail=tail.next;
         }
-        tail.next=null;
+        while(a!=null){
+            tail.next=a;
+            a=a.next;
+            tail=tail.next;
+        }
+        while(b!=null){
+            tail.next=b;
+            b=b.next;
+            tail=tail.next;
+        }
+        // tail.next=null;
         return dummy.next;
     }
     public static void main(String[] args) {
         SinglyLinkedList s=new SinglyLinkedList();
-        s.head=new Node(1);
+        // s.head=new Node(1);
         s.insertEnd(2);
         s.insertEnd(3);
 
         display(s.head);
 
         SinglyLinkedList ss=new SinglyLinkedList();
-        ss.head=new Node(4);
+        // ss.head=new Node(4);
         ss.insertEnd(5);
         ss.insertEnd(7);
         // ss.insertEnd(8);
@@ -322,7 +332,7 @@ public class SinglyLinkedList {
         // ss.insertEnd(7);
 
         display(ss.head);
-        display(addTwoList(s.head, ss.head));
+        // display(addTwoList(s.head, ss.head));
         
         display(merge(s.head, ss.head));
 
