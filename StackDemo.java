@@ -45,9 +45,6 @@ public class StackDemo {
         }
     }
 
-    public static void reverseString(String s){
-
-    }
 
     public static void main(String[] args) {
         getLength();
