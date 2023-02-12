@@ -26,7 +26,7 @@ public class BinaryTree{
         second.left=fourth;
         second.right=fifth;
     }
-    public static void preOrder(Node root){
+    private static void preOrder(Node root){
 //        if(root==null){
 //            return;
 //        }
@@ -52,7 +52,7 @@ public class BinaryTree{
             }
         }
     }
-    public static void inOrder(Node root){
+    private static void inOrder(Node root){
         if(root==null){
             return;
         }
@@ -76,7 +76,7 @@ public class BinaryTree{
         }
 
     }
-    public static void postOrder(Node root){
+    private static void postOrder(Node root){
         if(root==null)return ;
 //        postOrder((root.left));
 //        postOrder(root.right);
