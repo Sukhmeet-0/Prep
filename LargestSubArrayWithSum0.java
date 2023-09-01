@@ -28,7 +28,7 @@ public class LargestSubArrayWithSum0 {
             }
         }
         System.out.println(maxi);
-
+        sc.close();
 
     }
 }
